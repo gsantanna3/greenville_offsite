@@ -143,8 +143,7 @@
 </div>
 
 <script>
-const SHAREPOINT_SITE = "https://coxautoinc.sharepoint.com/sites/AssuranceAnalytics";
-const LIST_NAME = "Greenville Offsite Playlist";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLChuMFuROuD7MUUNiDax4xUtWJXoKxr2kD3bNOb-2x1je-UO4-dz4h3C6tS9I4Y9UbA/exec";
 
 const NICKNAMES = ["The Maestro","DJ Sunshine","Rock Lobster","Mic Drop","Velvet Thunder","Disco Inferno","The Riff","Neon Serenade","Bass Drop Barry","The Encore","Glitter Boots","Captain Chorus","The Harmonizer","Midnight Jam","Starlight"];
 const SONGS = ["Bohemian Rhapsody – Queen","Don't Stop Believin' – Journey","Sweet Caroline – Neil Diamond","Livin' on a Prayer – Bon Jovi","Mr. Brightside – The Killers","Dancing Queen – ABBA","Africa – Toto","Wonderwall – Oasis","September – Earth, Wind & Fire","Take Me Home, Country Roads – John Denver","Shallow – Lady Gaga & Bradley Cooper","Uptown Funk – Mark Ronson ft. Bruno Mars","Shake It Off – Taylor Swift","Happy – Pharrell Williams","Can't Stop the Feeling – Justin Timberlake","Smells Like Teen Spirit – Nirvana","I Will Survive – Gloria Gaynor","Jump Around – House of Pain","Eye of the Tiger – Survivor","Living for the City – Stevie Wonder","Waterloo – ABBA","Total Eclipse of the Heart – Bonnie Tyler","I Want It That Way – Backstreet Boys","Since U Been Gone – Kelly Clarkson","Gold Digger – Kanye West","Killing Me Softly – Fugees","Sweet Home Alabama – Lynyrd Skynyrd","Piano Man – Billy Joel","Roxanne – The Police","99 Luftballons – Nena"];
@@ -235,17 +234,12 @@ async function submitForm() {
   btn.disabled = true; btn.textContent = "Submitting..."; err.style.display = "none";
   const nickname = getFinalNickname(), song1 = getFinalSong(1), song2 = getFinalSong(2);
   try {
-    const digestRes = await fetch(`${SHAREPOINT_SITE}/_api/contextinfo`, {
-      method: "POST", headers: { "Accept": "application/json;odata=verbose" }, credentials: "include"
+    await fetch(SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nickname, song1, song2 })
     });
-    const digestData = await digestRes.json();
-    const digest = digestData.d.GetContextWebInformation.FormDigestValue;
-    const res = await fetch(`${SHAREPOINT_SITE}/_api/web/lists/getbytitle('${encodeURIComponent(LIST_NAME)}')/items`, {
-      method: "POST", credentials: "include",
-      headers: { "Accept": "application/json;odata=verbose", "Content-Type": "application/json;odata=verbose", "X-RequestDigest": digest },
-      body: JSON.stringify({ __metadata: { type: "SP.Data.Greenville_x0020_Offsite_x0020_PlaylistListItem" }, Nickname: nickname, Song1: song1, Song2: song2 })
-    });
-    if (!res.ok) throw new Error("SharePoint error");
     document.getElementById("doneNickname").textContent = nickname;
     document.getElementById("doneSong1").textContent = song1;
     document.getElementById("doneSong2").textContent = song2;
