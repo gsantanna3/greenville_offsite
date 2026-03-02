@@ -47,7 +47,6 @@
   .small { color: rgba(255,255,255,0.5); font-size: 13px; }
   .song-group { margin-bottom: 24px; }
   .song-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.85); }
-  .field-label { display: block; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
 </style>
 </head>
 <body>
@@ -70,7 +69,6 @@
     <div class="bar" id="b2"></div>
     <div class="bar" id="b3"></div>
     <div class="bar" id="b4"></div>
-    <div class="bar" id="b5"></div>
   </div>
 
   <!-- Step 1: Welcome -->
@@ -85,20 +83,8 @@
     </div>
   </div>
 
-  <!-- Step 2: Real Name -->
+  <!-- Step 2: Nickname -->
   <div class="step" id="step2">
-    <h2>Your Real Name</h2>
-    <p style="margin-bottom:20px">This won't be shown publicly — it's only used to track responses.</p>
-    <label class="field-label">👤 Full Name</label>
-    <input type="text" id="realNameInput" placeholder="Enter your real name..." oninput="validateRealName()">
-    <div class="btn-row">
-      <button class="btn-back" onclick="goTo(1)">← Back</button>
-      <button class="btn" id="btnToStep3" onclick="goTo(3)" disabled>Next →</button>
-    </div>
-  </div>
-
-  <!-- Step 3: Nickname -->
-  <div class="step" id="step3">
     <h2>Choose Your Nickname</h2>
     <p style="margin-bottom:20px">Pick one below or create your own</p>
     <div class="tags" id="nicknameTags"></div>
@@ -108,13 +94,13 @@
     </div>
     <p class="hint" id="nicknameHint" style="display:none"></p>
     <div class="btn-row">
-      <button class="btn-back" onclick="goTo(2)">← Back</button>
-      <button class="btn" id="btnToStep4" onclick="goTo(4)" disabled>Next →</button>
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn" id="btnToStep3" onclick="goTo(3)" disabled>Next →</button>
     </div>
   </div>
 
-  <!-- Step 4: Songs -->
-  <div class="step" id="step4">
+  <!-- Step 3: Songs -->
+  <div class="step" id="step3">
     <h2>Pick Your 2 Songs</h2>
     <p style="margin-bottom:20px">Choose from the list or write your own</p>
     <div class="song-group">
@@ -129,30 +115,29 @@
     </div>
     <p class="error" id="songError" style="display:none">⚠️ Please pick two different songs!</p>
     <div class="btn-row">
-      <button class="btn-back" onclick="goTo(3)">← Back</button>
-      <button class="btn" id="btnToStep5" onclick="goTo(5)" disabled>Review →</button>
+      <button class="btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn" id="btnToStep4" onclick="goTo(4)" disabled>Review →</button>
     </div>
   </div>
 
-  <!-- Step 5: Review -->
-  <div class="step" id="step5">
+  <!-- Step 4: Review -->
+  <div class="step" id="step4">
     <h2 class="center" style="margin-bottom:24px">Review Your Picks</h2>
     <div class="review-box">
-      <div class="review-row"><div class="review-label">👤 Real Name</div><div class="review-value" id="reviewRealName"></div></div>
       <div class="review-row"><div class="review-label">🎭 Nickname</div><div class="review-value" id="reviewNickname"></div></div>
       <div class="review-row"><div class="review-label">🎵 Song 1</div><div class="review-value" id="reviewSong1"></div></div>
       <div class="review-row"><div class="review-label">🎶 Song 2</div><div class="review-value" id="reviewSong2"></div></div>
     </div>
     <p class="small center" style="margin-bottom:24px">Looks good? Hit submit to add your songs to the Greenville playlist!</p>
     <div class="btn-row">
-      <button class="btn-back" onclick="goTo(4)">← Edit</button>
+      <button class="btn-back" onclick="goTo(3)">← Edit</button>
       <button class="btn" id="btnSubmit" onclick="submitForm()">Submit 🎉</button>
     </div>
     <p class="error center" id="submitError" style="display:none;margin-top:12px">⚠️ Something went wrong. Please try again.</p>
   </div>
 
-  <!-- Step 6: Done -->
-  <div class="step" id="step6">
+  <!-- Step 5: Done -->
+  <div class="step" id="step5">
     <div class="center">
       <div style="font-size:64px;margin-bottom:16px">🎉</div>
       <h2 style="font-size:24px;margin-bottom:12px">You're on the playlist!</h2>
@@ -174,12 +159,6 @@ const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4495sd87HjSo2bGjKK
 const NICKNAMES = ["The Maestro","DJ Sunshine","Rock Lobster","Mic Drop","Velvet Thunder","Disco Inferno","The Riff","Neon Serenade","Bass Drop Barry","The Encore"];
 
 const SONGS = [
-  "Bohemian Rhapsody – Queen",
-  "Don't Stop Believin' – Journey",
-  "Livin' on a Prayer – Bon Jovi",
-  "Sweet Caroline – Neil Diamond",
-  "Dancing Queen – ABBA",
-  "September – Earth, Wind & Fire",
   "Uptown Funk – Mark Ronson ft. Bruno Mars",
   "Eye of the Tiger – Survivor",
   "I Will Survive – Gloria Gaynor",
@@ -190,11 +169,6 @@ const SONGS = [
 
 let selectedNickname = "";
 let takenNicknames = [];
-
-function validateRealName() {
-  const val = document.getElementById("realNameInput").value.trim();
-  document.getElementById("btnToStep3").disabled = !val;
-}
 
 function buildNicknameTags() {
   const tagsEl = document.getElementById("nicknameTags");
@@ -235,7 +209,7 @@ function updateHint() {
   const hint = document.getElementById("nicknameHint");
   if (val) { hint.style.display = "block"; hint.textContent = `You'll be known as: ${val} 🎭`; }
   else { hint.style.display = "none"; }
-  document.getElementById("btnToStep4").disabled = !val;
+  document.getElementById("btnToStep3").disabled = !val;
 }
 
 function getFinalNickname() {
@@ -261,17 +235,16 @@ function validateSongs() {
   const err = document.getElementById("songError");
   const ok = s1 && s2 && s1 !== s2;
   err.style.display = (s1 && s2 && s1 === s2) ? "block" : "none";
-  document.getElementById("btnToStep5").disabled = !ok;
+  document.getElementById("btnToStep4").disabled = !ok;
 }
 
 function goTo(n) {
   document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
   document.getElementById(`step${n}`).classList.add("active");
   const prog = document.getElementById("progress");
-  prog.style.display = n === 1 || n === 6 ? "none" : "flex";
-  [1,2,3,4,5].forEach(i => document.getElementById(`b${i}`).className = "bar" + (i <= n-1 ? " active" : ""));
-  if (n === 5) {
-    document.getElementById("reviewRealName").textContent = document.getElementById("realNameInput").value.trim();
+  prog.style.display = n === 1 || n === 5 ? "none" : "flex";
+  [1,2,3,4].forEach(i => document.getElementById(`b${i}`).className = "bar" + (i <= n ? " active" : ""));
+  if (n === 4) {
     document.getElementById("reviewNickname").textContent = getFinalNickname();
     document.getElementById("reviewSong1").textContent = getFinalSong(1);
     document.getElementById("reviewSong2").textContent = getFinalSong(2);
@@ -282,20 +255,19 @@ async function submitForm() {
   const btn = document.getElementById("btnSubmit");
   const err = document.getElementById("submitError");
   btn.disabled = true; btn.textContent = "Submitting..."; err.style.display = "none";
-  const realName = document.getElementById("realNameInput").value.trim();
   const nickname = getFinalNickname(), song1 = getFinalSong(1), song2 = getFinalSong(2);
   try {
     await fetch(SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ realName, nickname, song1, song2 })
+      body: JSON.stringify({ nickname, song1, song2 })
     });
     if (NICKNAMES.includes(nickname)) takenNicknames.push(nickname);
     document.getElementById("doneNickname").textContent = nickname;
     document.getElementById("doneSong1").textContent = song1;
     document.getElementById("doneSong2").textContent = song2;
-    goTo(6);
+    goTo(5);
   } catch(e) {
     err.style.display = "block"; btn.disabled = false; btn.textContent = "Submit 🎉";
   }
@@ -304,7 +276,6 @@ async function submitForm() {
 function reset() {
   selectedNickname = "";
   buildNicknameTags();
-  document.getElementById("realNameInput").value = "";
   document.getElementById("customNicknameCheck").checked = false;
   document.getElementById("customNicknameInput").style.display = "none";
   document.getElementById("customNicknameInput").value = "";
@@ -314,7 +285,6 @@ function reset() {
   document.getElementById("song2Custom").style.display = "none";
   document.getElementById("song1Custom").value = "";
   document.getElementById("song2Custom").value = "";
-  document.getElementById("btnToStep3").disabled = true;
   goTo(1);
 }
 </script>
