@@ -2,37 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Greenville Offsite</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { min-height: 100vh; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%); display: flex; align-items: center; justify-content: center; font-family: 'Segoe UI', sans-serif; padding: 20px; }
+  body { min-height: 100vh; background: #000000; display: flex; align-items: center; justify-content: center; font-family: 'Bebas Neue', cursive; letter-spacing: 4px; padding: 20px; }
   .card { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 24px; padding: 48px 40px; max-width: 560px; width: 100%; color: white; box-shadow: 0 25px 60px rgba(0,0,0,0.4); }
-  h1 { font-size: 26px; font-weight: 800; background: linear-gradient(90deg, #f9c74f, #f3722c, #f94144); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+  h1 { font-size: 26px; font-weight: 800; background: linear-gradient(90deg, #39ff14, #00e676); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
   h2 { font-size: 20px; margin-bottom: 8px; }
   .subtitle { color: rgba(255,255,255,0.55); font-size: 14px; letter-spacing: 2px; text-transform: uppercase; }
   .header { text-align: center; margin-bottom: 36px; }
-  .emoji-big { font-size: 40px; margin-bottom: 8px; }
   .progress { display: flex; gap: 6px; margin-bottom: 36px; }
   .bar { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,0.15); transition: background 0.3s; }
-  .bar.active { background: linear-gradient(90deg,#f9c74f,#f3722c); }
+  .bar.active { background: linear-gradient(90deg,#39ff14,#00e676); }
   .step { display: none; }
   .step.active { display: block; }
-  p { color: rgba(255,255,255,0.7); line-height: 1.7; margin-bottom: 16px; }
-  .btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(90deg, #f9c74f, #f3722c); color: #1a1a2e; font-weight: 700; font-size: 15px; cursor: pointer; transition: opacity 0.2s; }
+  p { color: rgba(255,255,255,0.9); line-height: 1.7; margin-bottom: 16px; }
+  .btn { width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(90deg, #39ff14, #00e676); color: #000000; font-weight: 700; font-size: 15px; cursor: pointer; transition: opacity 0.2s; font-family: 'Bebas Neue', cursive; letter-spacing: 4px; }
   .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-  .btn-back { padding: 14px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); font-weight: 600; font-size: 15px; cursor: pointer; }
+  .btn-back { padding: 14px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.7); font-weight: 600; font-size: 15px; cursor: pointer; font-family: 'Bebas Neue', cursive; letter-spacing: 4px; }
   .btn-row { display: flex; gap: 12px; margin-top: 8px; }
   .btn-row .btn { flex: 1; }
-  .btn-ghost { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-weight: 700; font-size: 15px; cursor: pointer; }
+  .btn-ghost { width: 100%; padding: 14px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.1); color: white; font-weight: 700; font-size: 15px; cursor: pointer; font-family: 'Bebas Neue', cursive; letter-spacing: 4px; }
   .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
   .tag { padding: 8px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.8); cursor: pointer; font-size: 13px; transition: all 0.2s; }
-  .tag.selected { border-color: #f9c74f; background: rgba(249,199,79,0.15); color: #f9c74f; }
+  .tag.selected { border-color: #39ff14; background: rgba(57,255,20,0.15); color: #39ff14; }
   .custom-row { margin-bottom: 20px; }
   .custom-row label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 10px; }
-  input[type=text], select { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); color: white; font-size: 14px; outline: none; margin-bottom: 10px; }
+  input[type=text], select { width: 100%; padding: 12px 14px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.2); background: rgba(255,255,255,0.07); color: white; font-size: 14px; outline: none; margin-bottom: 10px; font-family: 'Bebas Neue', cursive; letter-spacing: 2px; }
   select option { background: #1a1a2e; }
-  .hint { color: #f9c74f; font-size: 14px; margin-bottom: 16px; }
+  .hint { color: #39ff14; font-size: 14px; margin-bottom: 16px; }
   .error { color: #f94144; font-size: 13px; margin-bottom: 12px; }
   .review-box { background: rgba(255,255,255,0.06); border-radius: 16px; padding: 24px; margin-bottom: 28px; }
   .review-row { padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid rgba(255,255,255,0.08); }
@@ -41,17 +42,25 @@
   .review-value { font-size: 15px; font-weight: 600; }
   .success-box { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 16px 20px; margin: 24px 0; }
   .success-box p { margin: 4px 0; font-size: 15px; color: white; }
-  .gold { color: #f9c74f; }
+  .gold { color: #39ff14; }
   .center { text-align: center; }
   .small { color: rgba(255,255,255,0.5); font-size: 13px; }
   .song-group { margin-bottom: 24px; }
   .song-label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: rgba(255,255,255,0.85); }
+  .field-label { display: block; font-size: 14px; color: rgba(255,255,255,0.7); margin-bottom: 8px; }
 </style>
 </head>
 <body>
 <div class="card">
   <div class="header">
-    <div class="emoji-big">🎵</div>
+    <video id="headerVideo" autoplay muted playsinline style="display:block; width:100%; border-radius:12px; margin-bottom:16px;">
+      <source src="GV_Title.mp4" type="video/mp4">
+    </video>
+    <script>
+      const vid = document.getElementById("headerVideo");
+      vid.addEventListener("canplaythrough", () => { vid.muted = false; vid.play(); });
+      vid.addEventListener("ended", () => { vid.muted = true; vid.loop = true; vid.play(); });
+    </script>
     <h1>Greenville Offsite</h1>
     <p class="subtitle">Song Submission</p>
   </div>
@@ -61,19 +70,35 @@
     <div class="bar" id="b2"></div>
     <div class="bar" id="b3"></div>
     <div class="bar" id="b4"></div>
+    <div class="bar" id="b5"></div>
   </div>
 
   <!-- Step 1: Welcome -->
   <div class="step active" id="step1">
     <div class="center">
       <h2>Welcome! 🎤</h2>
-      <p>Get ready for the Greenville Offsite! We're putting together an epic playlist and we need <strong>your</strong> song picks.<br><br>Pick a nickname and choose 2 songs you'd love to hear. Let's make it legendary!</p>
-      <button class="btn" onclick="goTo(2)">Let's Go! 🚀</button>
+      <p>Get ready for the Greenville Offsite! We're putting together an epic playlist and we need <strong>your</strong> song picks.<br><br>
+      1. Pick a nickname that doesn't give away who you are — it will be your alias throughout the activity.<br>
+      2. Choose 2 songs you'd love to hear in our music trivia sessions.<br><br>
+      Let's make it legendary!</p>
+      <button class="btn" onclick="goTo(2)">LET'S GO!</button>
     </div>
   </div>
 
-  <!-- Step 2: Nickname -->
+  <!-- Step 2: Real Name -->
   <div class="step" id="step2">
+    <h2>Your Real Name</h2>
+    <p style="margin-bottom:20px">This won't be shown publicly — it's only used to track responses.</p>
+    <label class="field-label">👤 Full Name</label>
+    <input type="text" id="realNameInput" placeholder="Enter your real name..." oninput="validateRealName()">
+    <div class="btn-row">
+      <button class="btn-back" onclick="goTo(1)">← Back</button>
+      <button class="btn" id="btnToStep3" onclick="goTo(3)" disabled>Next →</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Nickname -->
+  <div class="step" id="step3">
     <h2>Choose Your Nickname</h2>
     <p style="margin-bottom:20px">Pick one below or create your own</p>
     <div class="tags" id="nicknameTags"></div>
@@ -83,13 +108,13 @@
     </div>
     <p class="hint" id="nicknameHint" style="display:none"></p>
     <div class="btn-row">
-      <button class="btn-back" onclick="goTo(1)">← Back</button>
-      <button class="btn" id="btnToStep3" onclick="goTo(3)" disabled>Next →</button>
+      <button class="btn-back" onclick="goTo(2)">← Back</button>
+      <button class="btn" id="btnToStep4" onclick="goTo(4)" disabled>Next →</button>
     </div>
   </div>
 
-  <!-- Step 3: Songs -->
-  <div class="step" id="step3">
+  <!-- Step 4: Songs -->
+  <div class="step" id="step4">
     <h2>Pick Your 2 Songs</h2>
     <p style="margin-bottom:20px">Choose from the list or write your own</p>
     <div class="song-group">
@@ -104,29 +129,30 @@
     </div>
     <p class="error" id="songError" style="display:none">⚠️ Please pick two different songs!</p>
     <div class="btn-row">
-      <button class="btn-back" onclick="goTo(2)">← Back</button>
-      <button class="btn" id="btnToStep4" onclick="goTo(4)" disabled>Review →</button>
+      <button class="btn-back" onclick="goTo(3)">← Back</button>
+      <button class="btn" id="btnToStep5" onclick="goTo(5)" disabled>Review →</button>
     </div>
   </div>
 
-  <!-- Step 4: Review -->
-  <div class="step" id="step4">
+  <!-- Step 5: Review -->
+  <div class="step" id="step5">
     <h2 class="center" style="margin-bottom:24px">Review Your Picks</h2>
     <div class="review-box">
+      <div class="review-row"><div class="review-label">👤 Real Name</div><div class="review-value" id="reviewRealName"></div></div>
       <div class="review-row"><div class="review-label">🎭 Nickname</div><div class="review-value" id="reviewNickname"></div></div>
       <div class="review-row"><div class="review-label">🎵 Song 1</div><div class="review-value" id="reviewSong1"></div></div>
       <div class="review-row"><div class="review-label">🎶 Song 2</div><div class="review-value" id="reviewSong2"></div></div>
     </div>
     <p class="small center" style="margin-bottom:24px">Looks good? Hit submit to add your songs to the Greenville playlist!</p>
     <div class="btn-row">
-      <button class="btn-back" onclick="goTo(3)">← Edit</button>
+      <button class="btn-back" onclick="goTo(4)">← Edit</button>
       <button class="btn" id="btnSubmit" onclick="submitForm()">Submit 🎉</button>
     </div>
     <p class="error center" id="submitError" style="display:none;margin-top:12px">⚠️ Something went wrong. Please try again.</p>
   </div>
 
-  <!-- Step 5: Done -->
-  <div class="step" id="step5">
+  <!-- Step 6: Done -->
+  <div class="step" id="step6">
     <div class="center">
       <div style="font-size:64px;margin-bottom:16px">🎉</div>
       <h2 style="font-size:24px;margin-bottom:12px">You're on the playlist!</h2>
@@ -143,30 +169,53 @@
 </div>
 
 <script>
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyLChuMFuROuD7MUUNiDax4xUtWJXoKxr2kD3bNOb-2x1je-UO4-dz4h3C6tS9I4Y9UbA/exec";
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw4495sd87HjSo2bGjKKMhHKI_XkTMhxlTO4i3OYrbkKE-VpMnVXjvyugRjASJyd0EqVg/exec";
 
-const NICKNAMES = ["The Maestro","DJ Sunshine","Rock Lobster","Mic Drop","Velvet Thunder","Disco Inferno","The Riff","Neon Serenade","Bass Drop Barry","The Encore","Glitter Boots","Captain Chorus","The Harmonizer","Midnight Jam","Starlight"];
-const SONGS = ["Bohemian Rhapsody – Queen","Don't Stop Believin' – Journey","Sweet Caroline – Neil Diamond","Livin' on a Prayer – Bon Jovi","Mr. Brightside – The Killers","Dancing Queen – ABBA","Africa – Toto","Wonderwall – Oasis","September – Earth, Wind & Fire","Take Me Home, Country Roads – John Denver","Shallow – Lady Gaga & Bradley Cooper","Uptown Funk – Mark Ronson ft. Bruno Mars","Shake It Off – Taylor Swift","Happy – Pharrell Williams","Can't Stop the Feeling – Justin Timberlake","Smells Like Teen Spirit – Nirvana","I Will Survive – Gloria Gaynor","Jump Around – House of Pain","Eye of the Tiger – Survivor","Living for the City – Stevie Wonder","Waterloo – ABBA","Total Eclipse of the Heart – Bonnie Tyler","I Want It That Way – Backstreet Boys","Since U Been Gone – Kelly Clarkson","Gold Digger – Kanye West","Killing Me Softly – Fugees","Sweet Home Alabama – Lynyrd Skynyrd","Piano Man – Billy Joel","Roxanne – The Police","99 Luftballons – Nena"];
+const NICKNAMES = ["The Maestro","DJ Sunshine","Rock Lobster","Mic Drop","Velvet Thunder","Disco Inferno","The Riff","Neon Serenade","Bass Drop Barry","The Encore"];
+
+const SONGS = [
+  "Bohemian Rhapsody – Queen",
+  "Don't Stop Believin' – Journey",
+  "Livin' on a Prayer – Bon Jovi",
+  "Sweet Caroline – Neil Diamond",
+  "Dancing Queen – ABBA",
+  "September – Earth, Wind & Fire",
+  "Uptown Funk – Mark Ronson ft. Bruno Mars",
+  "Eye of the Tiger – Survivor",
+  "I Will Survive – Gloria Gaynor",
+  "Piano Man – Billy Joel",
+  "Africa – Toto",
+  "Take Me Home, Country Roads – John Denver"
+];
 
 let selectedNickname = "";
+let takenNicknames = [];
 
-// Build nickname tags
-const tagsEl = document.getElementById("nicknameTags");
-NICKNAMES.forEach(n => {
-  const t = document.createElement("button");
-  t.className = "tag"; t.textContent = n;
-  t.onclick = () => {
-    document.querySelectorAll(".tag").forEach(x => x.classList.remove("selected"));
-    t.classList.add("selected");
-    selectedNickname = n;
-    document.getElementById("customNicknameCheck").checked = false;
-    document.getElementById("customNicknameInput").style.display = "none";
-    updateHint();
-  };
-  tagsEl.appendChild(t);
-});
+function validateRealName() {
+  const val = document.getElementById("realNameInput").value.trim();
+  document.getElementById("btnToStep3").disabled = !val;
+}
 
-// Build song dropdowns
+function buildNicknameTags() {
+  const tagsEl = document.getElementById("nicknameTags");
+  tagsEl.innerHTML = "";
+  NICKNAMES.filter(n => !takenNicknames.includes(n)).forEach(n => {
+    const t = document.createElement("button");
+    t.className = "tag"; t.textContent = n;
+    t.onclick = () => {
+      document.querySelectorAll(".tag").forEach(x => x.classList.remove("selected"));
+      t.classList.add("selected");
+      selectedNickname = n;
+      document.getElementById("customNicknameCheck").checked = false;
+      document.getElementById("customNicknameInput").style.display = "none";
+      updateHint();
+    };
+    tagsEl.appendChild(t);
+  });
+}
+
+buildNicknameTags();
+
 ["song1Select","song2Select"].forEach(id => {
   const sel = document.getElementById(id);
   SONGS.forEach(s => { const o = document.createElement("option"); o.value = s; o.textContent = s; sel.appendChild(o); });
@@ -186,7 +235,7 @@ function updateHint() {
   const hint = document.getElementById("nicknameHint");
   if (val) { hint.style.display = "block"; hint.textContent = `You'll be known as: ${val} 🎭`; }
   else { hint.style.display = "none"; }
-  document.getElementById("btnToStep3").disabled = !val;
+  document.getElementById("btnToStep4").disabled = !val;
 }
 
 function getFinalNickname() {
@@ -212,16 +261,17 @@ function validateSongs() {
   const err = document.getElementById("songError");
   const ok = s1 && s2 && s1 !== s2;
   err.style.display = (s1 && s2 && s1 === s2) ? "block" : "none";
-  document.getElementById("btnToStep4").disabled = !ok;
+  document.getElementById("btnToStep5").disabled = !ok;
 }
 
 function goTo(n) {
   document.querySelectorAll(".step").forEach(s => s.classList.remove("active"));
   document.getElementById(`step${n}`).classList.add("active");
   const prog = document.getElementById("progress");
-  prog.style.display = n === 1 || n === 5 ? "none" : "flex";
-  [1,2,3,4].forEach(i => document.getElementById(`b${i}`).className = "bar" + (i <= n ? " active" : ""));
-  if (n === 4) {
+  prog.style.display = n === 1 || n === 6 ? "none" : "flex";
+  [1,2,3,4,5].forEach(i => document.getElementById(`b${i}`).className = "bar" + (i <= n-1 ? " active" : ""));
+  if (n === 5) {
+    document.getElementById("reviewRealName").textContent = document.getElementById("realNameInput").value.trim();
     document.getElementById("reviewNickname").textContent = getFinalNickname();
     document.getElementById("reviewSong1").textContent = getFinalSong(1);
     document.getElementById("reviewSong2").textContent = getFinalSong(2);
@@ -232,18 +282,20 @@ async function submitForm() {
   const btn = document.getElementById("btnSubmit");
   const err = document.getElementById("submitError");
   btn.disabled = true; btn.textContent = "Submitting..."; err.style.display = "none";
+  const realName = document.getElementById("realNameInput").value.trim();
   const nickname = getFinalNickname(), song1 = getFinalSong(1), song2 = getFinalSong(2);
   try {
     await fetch(SCRIPT_URL, {
       method: "POST",
       mode: "no-cors",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ nickname, song1, song2 })
+      body: JSON.stringify({ realName, nickname, song1, song2 })
     });
+    if (NICKNAMES.includes(nickname)) takenNicknames.push(nickname);
     document.getElementById("doneNickname").textContent = nickname;
     document.getElementById("doneSong1").textContent = song1;
     document.getElementById("doneSong2").textContent = song2;
-    goTo(5);
+    goTo(6);
   } catch(e) {
     err.style.display = "block"; btn.disabled = false; btn.textContent = "Submit 🎉";
   }
@@ -251,7 +303,8 @@ async function submitForm() {
 
 function reset() {
   selectedNickname = "";
-  document.querySelectorAll(".tag").forEach(x => x.classList.remove("selected"));
+  buildNicknameTags();
+  document.getElementById("realNameInput").value = "";
   document.getElementById("customNicknameCheck").checked = false;
   document.getElementById("customNicknameInput").style.display = "none";
   document.getElementById("customNicknameInput").value = "";
@@ -261,6 +314,7 @@ function reset() {
   document.getElementById("song2Custom").style.display = "none";
   document.getElementById("song1Custom").value = "";
   document.getElementById("song2Custom").value = "";
+  document.getElementById("btnToStep3").disabled = true;
   goTo(1);
 }
 </script>
